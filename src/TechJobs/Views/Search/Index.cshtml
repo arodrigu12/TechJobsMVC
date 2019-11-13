@@ -6,20 +6,20 @@
     <p>
         @foreach (KeyValuePair<string, string> column in ViewBag.columns)
         {
-            <span>
-                <input type="radio"
-                       name="searchType"
-                       id="@column.Key"
-                       value="@column.Key" 
-                       checked="@column.Key == 'all''"/>
-                <label for="@column.Key">@column.Value</label>
-            </span>
+        <span>
+            <input type="radio"
+                   name="searchType"
+                   id="@column.Key"
+                   value="@column.Key"
+                   checked="@column.Key == 'all''" />
+            <label for="@column.Key">@column.Value</label>
+        </span>
         }
     </p>
 
     <p>
         <label for="searchTerm">Keyword:</label>
-        <input type="text" name="searchTerm" id="searchTerm" />
+        <input type="text" name="searchTerm" id="searchTerm" value="@ViewBag.searchTerm"/>
     </p>
 
     <input type="submit" value="Search" />
@@ -27,10 +27,37 @@
 
 <hr />
 
+@if (ViewBag.errorMsg != null)
+{
+<p style="color: red;">@ViewBag.errorMsg</p>
+}
+
 @if (ViewBag.jobs != null)
 {
 
     <h3>@ViewBag.jobs.Count Result(s)</h3>
 
-    // TODO #2 - Loop over jobs dictionary and display all job fields 
+    // TODO #2 - Loop over jobs dictionary and display all job fields
+    @foreach (var job in ViewBag.jobs)
+    {
+        <table class="job-listing">
+
+        @foreach (var key in @job.Keys)
+        {
+            <tr>
+                @if (String.Equals(key, "name"))
+                {
+                    <td>@key.ToUpper()</td>
+                }
+                else
+                {
+                    <td><a asp-controller="List" asp-action="Jobs" asp-route-column="@key" asp-route-value="@job[key]">@key.ToUpper()</a></td>
+                }
+
+                <td>@job[key]</td>
+            </tr>
+        }
+
+        </table>
+    }
 }
