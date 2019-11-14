@@ -24,8 +24,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-controller="Search" asp-action="Index">Search</a></li>
-                    <li><a asp-controller="List" asp-action="Index">List</a></li>
+                    <li><a asp-controller='@ViewBag.actions["search"]' asp-action="Index">Search</a></li>
+                    <li><a asp-controller='@ViewBag.actions["list"]' asp-action="Index">List</a></li>
                 </ul>
             </div>
         </div>

@@ -5,7 +5,7 @@ using TechJobs.Models;
 
 namespace TechJobs.Controllers
 {
-    public class SearchController : Controller
+    public class SearchController : TechJobsController
     {
         public IActionResult Index()
         {
